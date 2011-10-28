@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % A-bombctivate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+%Eigene Packages
+\usepackage{ngerman}			% Deutsch als Sprache (Silbentrennung etc)
+\usepackage{longtable}			% Unterstützung für Seitenumfassende Tabellen
+\usepackage{gensymb}			% Symbole
+\usepackage{ae}				% Besseres Schriftbild in PDF Dateien
+\usepackage[pdftex]{hyperref}		% Paket für klickbares Inhaltsverzeichnis, Miniaturen usw
+\usepackage[utf8]{inputenc}	% Paket für Umlaute (utf8 encoding), alte haben unter Umständen noch applemac! oder noch schlimmer: westeuropäisch windows
+\usepackage [T1]{fontenc}		
+\hypersetup
+{%
+pdftitle = {Algorithmen und Programme},
+pdfsubject = {AuP},
+pdfauthor = {Rouven Czerwinski},
+pdfkeywords = {AuP, Algorithmen, Programme},
+colorlinks = {true},
+linkcolor={blue},
+anchorcolor={black}
+}
+% Eigene Befehle
+\newcommand\txtunderbrace[2]{%
+  \settowidth{\myx}{#2}%
+  \begin{tabular}[t]{@{}>{\centering}p{\myx}@{}}%
+    \ensuremath{\underbrace{\text{#2}}}\tabularnewline
+    \makebox[0pt][c]{#1}~\tabularnewline
+  \end{tabular}%
+}%\txtunderbrace{Text unter der Klammer}{Text im Kontext}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Algorithmen und Programme}
+\author{Rouven Czerwinski}
+\date{Version vom \today}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\newpage~\newpage
+
+\tableofcontents
+\listoftables
+\newpage
+
+\input{Einfuehrung}
+\newpage
+\input{AlgorithmischeGrundkonzepte}
+\end{document}
