@@ -30,3 +30,125 @@
   \item Ausdrücke (Terme) entstehen indem Operanden mit Operationen verknüpft werden
   \item Datentypen legen die Wertemenge fest, aus der die Operanden Werte annehmen können
  \end{itemize}
+ ~\\
+ \subsection{Standard-Datentypen}: \\
+ (In den meisten Programmiersprachen vorgegeben)
+ \subsubsection{Integer:} (in der Programmiersprache C/C++: int) \\
+ C/C++ Beispiel: (Deklaration einer Variabln a vom Typ Integer) \\
+ \begin{lstlisting}
+ int a; // Kommentar
+ \end{lstlisting} 
+ Datentyp, Variablenname, Befehlsende \\
+ Wertemenge: Z = \{\dots,-1,0,1,2,...\} (im realen Rechner nach oben und unten begrenzt) \\
+ Rechenoperationen: +, -, *, /, \% (modulo), ++ (Inkrement), --(Dekrement) \\
+ Zuweisungsoperator: = \\
+ Vergleichsoperatorn: <, >, == (gleich), != (ungleich), <= (kleiner gleich), >=, \dots \\
+ C/C++ Beispiel: \\
+ \begin{lstlisting}
+ int a; // Deklaration der Variablen a
+ int b; // Deklaration der Variablen b
+ a = 5; // Wertezuweisung: a wird auf 5 gesetzt
+ b = a +8;
+ \end{lstlisting}
+ Variablen bestehen aus einem Namen (Referenz auf einen Speicherplatz) und einem Wert (Inhalt des Speicherplatzes)
+ \begin{lstlisting}
+ int c;
+ c = b / a; // Division: c wird auf b/a also 2 gesetzt
+ \end{lstlisting}
+ Problem bei der Integer-Division: \\
+ Ergebnis wird ganzzahlig abgerundet: $13 / 5$ ergibt 2, \\
+ Allg. zur Berechnung des Restes der ganzzahligen Division b/a:
+ \begin{lstlisting}
+ int rest;
+ rest = b - (b/a)*a;
+ \end{lstlisting}
+ Der Rest kann in C/C++ auch durch den Modulo -Operator \% beschrieben werden
+ \begin{lstlisting}
+ rest = b % a;
+ \end{lstlisting}
+ 
+ \subsubsection{Real:} (in C/C++: float und double) \\
+ Wertemenge: Q (I'm realen Rechner nur eine Teilmenge von Q) \\
+ Operatoren wie oben \\
+ C/C++ Beispiel
+ \begin{lstlisting}
+ double c,d; // Deklaration der Var. c und d
+ c = 0,3; // c wird auf 0,3 gesetzt
+ d = (4,5 - c)*1,5; // d <- 6,3 
+ \end{lstlisting}
+ 
+ \subsubsection{Character:} (in C/C++: char) \\
+ Wertemenge zB. \{'a', 'b',\dots,'A','B', \dots,'1','2',\dots,'\#', \dots\}
+ \begin{lstlisting}
+ char e;
+ e = 'z';
+ char f = '#'
+ \end{lstlisting}
+ 
+ \subsubsection{String:} (in C kein Standarddatentyp, statt dessen Array vom Typ char, in C++ std::string) \\
+ Wertemenge: Zeichenketten, zB. ''Hallo'', ''Guten Tag'', \dots \\
+ C++ Beispiel:
+ \begin{lstlisting}
+ char wort[6] = "Hallo"; //Deklaration als char-array
+ std::string s="Guten Tag"; // Deklaration als std::string
+ \end{lstlisting}
+ 
+ \subsubsection{Boolean:} (in C++ bool; in C kein Standarddatentyp, stattdessen int) \\
+ Wertemenge: \{true, false\} btw. \{0,1\} \\
+ Einstelliger: ! (not)
+ Zweistellige Verknüpfungensoperatoren: \&\& (and), || (or), == (gleich), != (ungleich), \dots \\
+ C++ Beispiel
+ \begin{lstlisting}
+ bool ergebnis,op1,op2;
+ op1 = true;
+ op2 = !op1; // op2 wird false
+ ergebnis = op1 && op2; // ergebnis wird false
+ Ergebnis = op1 || op2; // ergebnis wird true
+ \end{lstlisting}
+ Verknüpfungstabellen: \\
+\begin{table}[p]
+	\caption[And Tabelle]{And Tabelle}
+	\begin{center}
+	\begin{tabular}{cc|c}
+		op1 & \&\& op2 & Ergebnis	\\
+		\hline
+		true & true & true\\
+		true & false & false	\\
+		false & true & false \\
+		false & false & false \\
+	\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[p]
+	\caption[Or Tabelle]{Or Tabelle}
+	\begin{center}
+	\begin{tabular}{cc|c}
+		op1 & || op2 & Ergebnis	\\
+		\hline
+		true & true & true\\
+		true & false & true	\\
+		false & true & true \\
+		false & false & false \\
+	\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[p]
+	\caption[Negation Tabelle]{Negation Tabelle}
+	\begin{center}
+	\begin{tabular}{c|c}
+		!op1 &  Ergebnis	\\
+		\hline
+		true & false\\
+		false & true	\\
+	\end{tabular}
+	\end{center}
+\end{table}
+\newpage
+Die Reihenfolge der Auswertung von Ausdrücken ergibt sich durch Klammerung und Vorrangregeln (Punkt vor Strich usw z.B. $(a*b +c*d/e)$) \\
+Beispiel: \\
+\begin{lstlisting}
+bool Ergebnis,op1,op2,op3;
+Ergebnis = op1 || op2 && op3;
+Ergebnis = op1 || (op2 && op3);
+\end{lstlisting}
+ 
