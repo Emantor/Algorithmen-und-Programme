@@ -14,7 +14,41 @@
 \usepackage[pdftex]{hyperref}		% Paket für klickbares Inhaltsverzeichnis, Miniaturen usw
 \usepackage[utf8]{inputenc}	% Paket für Umlaute (utf8 encoding), alte haben unter Umständen noch applemac! oder noch schlimmer: westeuropäisch windows
 \usepackage [T1]{fontenc}		
-\hypersetup
+% eigene Packages
+% Pakete von Rouven
+\usepackage{listings}
+\usepackage{color}
+
+%color Definitionen
+\definecolor{middlegray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+\definecolor{orange}{rgb}{0.8,0.3,0.3}
+\definecolor{yac}{rgb}{0.6,0.6,0.1}
+ 
+% Listings Settings
+ \lstset{
+   language=c++,
+   backgroundcolor=\color{lightgray},
+   basicstyle=\scriptsize\ttfamily,
+   keywordstyle=\bfseries\ttfamily\color{orange},
+   stringstyle=\color{blue}\ttfamily,
+   commentstyle=\color{middlegray}\ttfamily,
+   emph={square}, 
+   emphstyle=\color{blue}\texttt,
+   emph={[2]root,base},
+   emphstyle={[2]\color{yac}\texttt},
+   showstringspaces=false,
+   flexiblecolumns=false,
+   tabsize=2,
+   numbers=none,
+   numberstyle=\tiny,
+   numberblanklines=false,
+   stepnumber=1,
+   numbersep=10pt,
+   xleftmargin=15pt
+ }
+ 
+ \hypersetup
 {%
 pdftitle = {Algorithmen und Programme},
 pdfsubject = {AuP},
@@ -36,7 +70,7 @@ anchorcolor={black}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \title{Algorithmen und Programme}
-\author{Rouven Czerwinski}
+\author{Protokolliert von Rouven Czerwinski}
 \date{Version vom \today}                                           % Activate to display a given date or no date
 
 \begin{document}
@@ -50,4 +84,6 @@ anchorcolor={black}
 \input{Einfuehrung}
 \newpage
 \input{AlgorithmischeGrundkonzepte}
+\newpage
+\input{ImperativeAlgorithmen}
 \end{document}
