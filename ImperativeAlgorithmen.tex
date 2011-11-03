@@ -1,7 +1,7 @@
 \section{Imperative Algorithmen}
 \begin{itemize}
- \item Basis für imperative Programmiersprachen wie C, Pascal, Modula, Basic, PHP, \dots \\
- \item bekannteste/häufigste Art Alge. zu formulieren
+ \item Basis für imperative Programmiersprachen wie C, Pascal, Modula, Basic, PHP, \dots
+ \item bekannteste/häufigste Art Alg. zu formulieren
  \item Alternative: Deklarative Programmierung z.B. \\
  funktionale Programmiersprachen wie z.B \\
  Lisp, Scheme, Haskell, \dots
@@ -10,17 +10,17 @@
 \subsection{Ein- und Ausgabe}
  C++ Beispiel
  \begin{lstlisting}
- 	int a;
-  	cin >> a; //Eingabe des Wertes von a ueber Konsole
-  	cout << "Sie haben" << a << "eingegeben" << ende; // Ausgabe
+int a;
+cin >> a; //Eingabe des Wertes von a ueber Konsole
+cout << "Sie haben" << a << "eingegeben" << ende; // Ausgabe
  \end{lstlisting}
 
 \subsection{Verzweigungen (bedingte Anweisung)}
 Mit Verzweigungen können in Abhängigkeit einer Bedingung unterschiedliche Anweisungen ausgeführt werden. \\
 \underline{Syntax:} \\
 \begin{lstlisting}
- 	if (BEDINGUNG) ANWEISUNG;
-	else ANWEISUNG2;
+if (BEDINGUNG) ANWEISUNG;
+else ANWEISUNG2;
 \end{lstlisting}
 \underline{Interpretation:} \\
 Führe ANWEISUNG1 aus, falls die boolsche BEDINGUNG wahr (true) ist, ansonsten führe ANWEISUNG2 aus. (Der Else-Teil ist optional) \\
@@ -32,6 +32,19 @@ else cout << "a ist positiv" << endl;
 bool b = ((a % 2) == 0); // b wird true, falls a modulo 2 null ist
 if(b) cout << "a ist gerade" << endl;
 \end{lstlisting}
+
+~\\
+Eine ANWEISUNG darf auch ein mit Klammern \{\} zusammengefasster Block von mehreren Anweisungen sein.
+\newpage
+\underline{Syntax:} \\
+\begin{lstlisting}
+if (BEDINGUNG)
+{
+	Anweisung 1.1
+	Anweisung 1.2
+}
+\end{lstlisting}
+
 \begin{table}[h]
 	\caption[ModuloTabelle]{Modulo Tabelle}
 	\begin{center}
@@ -44,13 +57,3 @@ if(b) cout << "a ist gerade" << endl;
 	\end{tabular}
 	\end{center}
 \end{table}
-~\\
-Eine ANWEISUNG darf auch ein mit Klammern \{\} zusammengefasster Block von mehreren Anweisungen sein. \\
-\underline{Syntax:} \\
-\begin{lstlisting}
-if (BEDINGUNG)
-{
-	Anweisung 1.1
-	Anweisung 1.2
-}
-\end{lstlisting}
