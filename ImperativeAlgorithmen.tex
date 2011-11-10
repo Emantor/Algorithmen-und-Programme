@@ -33,7 +33,7 @@ bool b = ((a % 2) == 0); // b wird true, falls a modulo 2 null ist
 if(b) cout << "a ist gerade" << endl;
 \end{lstlisting}
 
-~\\
+~\\ 
 Eine ANWEISUNG darf auch ein mit Klammern \{\} zusammengefasster Block von mehreren Anweisungen sein.
 \newpage
 \underline{Syntax:} \\
@@ -57,3 +57,146 @@ if (BEDINGUNG)
 	\end{tabular}
 	\end{center}
 \end{table}
+
+\subsection{Schleifen (Wiederholungen)}
+Wiederholte Ausführung von Anweisungen in Abhängigkeit von einer Bedingung. \\
+\underline{Syntax:}
+\begin{lstlisting}
+while (BEDINGUNG) ANWEISUNG;
+\end{lstlisting}
+\underline{Interpretation:} Solang die boolsche BEDINGUNG wahr ist, wiederhole ANWEISUNG. \\
+C++ Beispiel:
+\begin{lstlisting}
+int a = -1;
+while (a<0) cin >> a; // Wiederholte Eingabe von a, bis a postitiv ist
+// Ausgabe aller Zahlen von 0 bis a:
+int b = 0; // Startwert
+while ( b <= a ) // Schleife laeuft solang b<=a
+{
+	cout << b << endl; // Ausgabe
+	b = b + 1; // Hochzaehlen von b
+}
+\end{lstlisting}
+Alternativ kann auch die for-Schleife benutzt werden. \\
+\underline{Syntax:}
+\begin{lstlisting}
+for ( STARTANWEISUNG; BEDINGUNG; ZAEHLANWEISUNG ) ANWEISUNG;
+\end{lstlisting}
+\underline{Interpretation:} Führe zu Beginn einmal die Startanweisung aus, solang die boolsche BEDINGUNG wahr ist, wiederhole erst ANWEISUNG dann ZAEHLANWEISUNG. \\
+\newpage
+C++ Beispiel:
+\begin{lstlisting}
+for ( int b = 0; b <= a; b = b + 1 ) // Ausgabe aller Zahlen von 0 bis a.
+{
+	cout << b << endl;
+}
+\end{lstlisting}
+
+\subsection{Prozeduren/Funktionen (Unterprogramme)}
+Zusammenfassung von mehreren Anweisungen zu einer Anweisung. Bestehend aus einem RÜCKGABETYP, dem FUNKTIONSNAMEN und einer Liste von Parametern. \\
+\underline{Syntax:}
+\begin{lstlisting}
+RUECKGABETYP FUNKTIONSNAME ( PARAM1, PARAM2,... )
+\end{lstlisting}
+C++ Beispiel:
+\begin{lstlisting}
+int max( int a, int b ) // Selbstdefinierte Funktion "max"
+{
+	if ( a > b ) return a; // gibt a zurueck
+	else return b; // gibt b zurueck
+}
+
+-------------------
+
+int m, n;
+m = max( 2,5 ); // m wird auf 5 gesetzt
+n = max( 8,m ); // n wird auf 8 gesetzt
+\end{lstlisting}
+Ganz Ähnlich ist die mathematische Definition: 
+\[
+max (a,b) - \left\{\begin{array}{cl}  \mbox{a falls }a>b\\ b \mbox{ sonst} \end{array}\right.
+\]
+Funktionsaufrufe können verschachtelt werden
+\begin{lstlisting}
+n = max( 8, max( 2,5 ) );
+\end{lstlisting}
+C++ Beispiel: Funktion zur Berechnung von $f(x) = x^2 +2x +1$
+\begin{lstlisting}
+float f( float x )
+{
+	return x * x + 2*x - 1
+}
+
+-------------------
+
+float y = f( 3.4 )
+\end{lstlisting}
+Wenn die Prozedur keine Rückgabe hat, ist der RUECKGABETYP = void
+\begin{lstlisting}
+void SchreibWas() // Prozedur ohne RUECKGABE und ohne Parameter
+{
+	cout << "Test" << endl;
+}
+\end{lstlisting}
+Der Einstiegspunkt eines Programms ist bei C/C++ auch eine Funktion mit Namen \glqq main\grqq
+\begin{lstlisting}
+int main()
+{
+	int x,n;
+	SchreibWas();
+	cout << "Zahl eingeben";
+	cin >> x;
+	n = max( x,5);
+	...
+	return 0; // Fehlercode
+}
+\end{lstlisting}
+
+\subsection{Strukturierung von Algorithmen/Programmen}
+Systematischer, übersichtlicher Aufbau; insbesondere bei größeren Programmen
+\begin{itemize}
+\item Zum Entwurf und zur Darstellung von Algorithmen: \underline{Struktogramme} (nach Nassi-Shneiderman): \\
+Linearer Ablauf (Sequenz) Verzweigung (Alternative) und Wiederholung (Iteration) \\
+( Hier müssen noch mit zB. TikZ Bilder gemalt werden\dots )
+\item Alternative
+\begin{itemize}
+\item[-] Ablauf-/Flussdiagramme (Auch hier fehlt das Bild\dots)
+\end{itemize}
+\item UML (Unified Modeling Language) \\
+Insbesondere objektorientiert
+\end{itemize}
+\subsection{Beispiel: Euklidischer Algorithmus zur Berechnung des ggT}
+Problem: Entwickeln sie ein Programm zum Kürzen eines Bruches.
+\[
+\frac{x}{y} = \frac{12}{24} = \frac{1}{2}
+\]
+Teilproblem: Berechnung des größten gemeinsamen Teilers. \\
+\underline{Algorithmus:} \\
+Gegeben: Zwei zahlen $x,y (element) \mathbb{N}$ \\
+Gesucht: ggT(x,y) \\
+Vorgehensweise: von der jeweils größeren Zahl die kleinere Zahl solang subtrahieren, bis beide Zahlen gleich sind => Ergebnis. \\
+(Muss noch als Bild realisiert werden) \\
+Eingabe $x,y$ \\
+solang $x \neq y$ \\
+ x>y \\
+ ja	nein \\
+ x= x-y | y=y-x \\
+Ausgabe x \\
+Beispiel: ggT(12,20)
+\begin{table}[h]
+	\caption[ggT Beispiel]{ggT Tabelle}
+	\begin{center}
+	\begin{tabular}{c|c|c}
+		~& $x$ & $y$\\
+		\hline
+		Start & 12 & 20\\
+		nach Schritt 1 & 12 & 8 \\
+		nach Schritt 2 & 4 & 8 \\
+		nach Schritt 3 & 4 & 4 \\
+	\end{tabular}
+	\end{center}
+\end{table}
+
+
+
+
