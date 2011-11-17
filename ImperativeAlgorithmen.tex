@@ -197,6 +197,156 @@ Beispiel: ggT(12,20)
 	\end{center}
 \end{table}
 
+\subsection{Parameterübertragung bei Prozeduren/Funktionen}
+\begin{itemize}
+\item \underline{Werteaufruf} (siehe bisherige Bsp.) \\
+Übergabeparameter sind lokale Größen, Sie werden beim Funktionsaufruf in lokale (nur für die Funktion sichtbare Variablen) kopiert.
+\item \underline{Referenzaufruf} Speicherort der Größen wird übergeben, d.h. Referenz auf den Inhalt der Variablen. \\
+In C mit Hilfe von Zeigern realisiert.
+C++ Beispiel
+\begin{lstlisting}
+int QuadratSumme(int x, int y)
+{
+	x = x*x;
+	y = y*y;
+	return x + y;
+}
 
+.....
 
+int x = 5;
+int y = 3;
+int a = QuadratSumme(x,y); // a wird 34
+cout << "x=" << x << " y=" << endl; // Ausgabe: x = 5, y = 3
+
+\end{lstlisting}
+Der Wert von x und y ändert sich durch den Funktionsaufruf nicht.
+\begin{lstlisting}
+int QuadratSumme(int &x, int &y)
+{
+	x = x*x;
+	y = y*y;
+	return x + y;
+}
+
+.....
+
+int x = 5;
+int y = 3;
+int a = QuadratSumme(x,y); // a wird 34
+cout << "x=" << x << " y=" << endl;
+// Ausgabe: x = 25, y = 9, wegen der &-Zeichen!
+\end{lstlisting}
+Bei Ausführung mit Referenzaufruf sind die Werte von x und y verändert!
+
+Beispiel: Funktion die den Inhalt zweier Variablen vertauscht.
+\begin{lstlisting}
+// void SwapValues(int x, int y)
+void SwapValues(int &x, int &y)
+{
+	int tmp = x;
+	x = y;
+	// y = x;
+	y = tmp;
+}
+
+--------------
+
+int x = 5;
+int y = 3;
+SwapValues(x,y);
+\end{lstlisting}
+\end{itemize}
+
+\subsection{Beispiel: Berechnung von Fibonacci-Zahlen}
+Jede Fibonacci-Zahl ist gleich der Summe der beiden vorhergehenden Fibonacci-Zahlen:
+\[
+F_0 = 0, F1 = 1; \mbox{für } n > 1: F_n = F_{n-1} + F_{n-2}
+\]
+\[
+\mbox{Folge: } 0, 1, 1, 2, 3, 5, 6, 13, ....
+\]
+C++ Beispiel:
+\begin{lstlisting}
+int fib(int n) // Funktion zur Berechnung der n-ten Fibonacci-Zahl
+{
+	int n2 = 0;
+	int n1 = 1;
+	int Ergebnis = n1 +n2;
+	
+	if (n<=0) return 0;
+	
+	for (int i=2; i<=n, i=i+1)
+	{
+		Ergebnis = n1 +n2;
+		n2 = n1;
+		n1 = ergebnis;
+	}
+	return ergebnis;
+}
+\end{lstlisting}
+\begin{table}[h]
+	\caption[Beispiel fib(4)]{fib(4)}
+	\begin{center}
+	\begin{tabular}{c|c|c|c|c}
+		fib(4) & i & n1 & n2 & ergebnis\\
+		\hline
+		Initial & 2 & 1 & 0 & 1 \\
+		Nach 1. Schleifendurchlauf & 3 & 1 & 1 & 1 \\
+		Nach 2. Schleifendurchlauf & 4 & 2 & 1 & 2 \\
+		Nach 3. Schleifendurchlauf & 5 & 3 & 2 & 3 \\
+
+	\end{tabular}
+	\end{center}
+\end{table}
+
+\subsection{Rekursionen}
+Prozeduren können sich selbst direkt oder indirekt aufrufen. \\
+Bsp: Fibonacci-Zahlen rekursiv: $ F_0 = 0, F_1=1; \mbox{für } n>1: F_n = F_{n-1} + F_{n+2} $
+C/C++:
+\begin{lstlisting}
+int fib{int n}
+{
+	if (n<=0) return 0; // Abbruchbedingungen
+	if (n==1) return 1; // Abbruchbedingungen
+	return fib(n-1) + fib(n-2); // Rekursionsschritt
+}
+\end{lstlisting}
+Ablaufbeispiel fit(4) \\
+(An dieser Stelle sollte eines erstellt werden...)\\
+\begin{itemize}
+\item Beispiel ineffizienter als iterative Lösung( mit fortschleife), da identische Berechnungen mehrfach wiederholt werden müssen.
+\item Oft lassen sich Algorithmen durch Rekursion einfach und anschaulicher Formulieren.
+\end{itemize}
+
+\subsection{Grundlegende statische Datenstrukturen}
+\begin{itemize}
+\item statisch = konstante Anzahl von Variablen bzw. konstante Größen \\
+\underline{Array:} Vektor bzw. Feld aus Elementen \underline{desselben} Datentyps
+in C/C++:
+\begin{lstlisting}
+int a[100]; // Deklaration eines Arrays mit 100 Integer-Werten 0-99!
+\end{lstlisting}
+\underline{Zugriffsbeispiel:}
+\begin{lstlisting}
+for (int i=0; i<100; i=i+1)
+{
+	a[i] = i*i;
+}
+\end{lstlisting}
+\begin{table}[h]
+	\caption[Array Access Beispiel]{Array Access}
+	\begin{center}
+	\begin{tabular}{c|c}
+		Index & Inhalt\\
+		\hline
+		0 & 0\\
+		2 & 4\\
+		... & ...\\
+		99 & 9801\\
+	\end{tabular}
+	\end{center}
+\end{table}
+
+\end{itemize}
 
