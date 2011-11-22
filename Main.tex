@@ -18,6 +18,7 @@
 % Pakete von Rouven
 \usepackage{listings}
 \usepackage{color}
+\usepackage{amsmath}
 
 %color Definitionen
 \definecolor{middlegray}{rgb}{0.5,0.5,0.5}
@@ -47,6 +48,16 @@
    numbersep=10pt,
    xleftmargin=15pt
  }
+ 
+ \lstset{literate=%
+{Ö}{{\"O}}1 
+{Ä}{{\"A}}1 
+{Ü}{{\"U}}1 
+{ß}{{\ss}}2 
+{ü}{{\"u}}1 
+{ä}{{\"a}}1 
+{ö}{{\"o}}1
+}
  
  \hypersetup
 {%
@@ -86,4 +97,6 @@ anchorcolor={black}
 \input{AlgorithmischeGrundkonzepte}
 \newpage
 \input{ImperativeAlgorithmen}
+\newpage
+\input{KomplexitaetvonAlgorithmen}
 \end{document}

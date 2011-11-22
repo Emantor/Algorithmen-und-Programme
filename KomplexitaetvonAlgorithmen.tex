@@ -1,0 +1,54 @@
+\section{Komplexität von Algorithmen}
+\subsection{Einführung}
+Alg1:
+\begin{lstlisting}
+void Alg1(int n)
+{
+	for(int i=0; i < n*4; i=i+1)
+	{
+		tue_etwas(...);
+	}
+}
+\end{lstlisting}
+Alg2:
+\begin{lstlisting}
+void Alg2(int n)
+{
+	for(int i=0; i < n; i=i+1)
+	{
+		for(int j=0; j<n; j=j+)
+		{
+			tue_etwas(...);
+		}
+	}
+}
+\end{lstlisting}
+Aufwandsvergleich(Anzahl der Aufrufe von \texttt{tue\_etwas}): \\
+\begin{table}[h]
+	\caption[Aufwandsvergleich der Algorithmen]{Aufwandsvergleich}
+	\begin{center}
+	\begin{tabular}{c|ccccccc}
+		n & 1 & 2 & 3 & 4 & 5 & 6 & 7\\
+		\hline
+		Alg1 & 4 & 8 & 12 & 16 & 20 & 24 & 28\\
+		Alg2 & 1 & 4 & 9 & 16 & 25 & 36 & 49\\
+	\end{tabular}
+	\end{center}
+\end{table}
+~\\
+Alg1 $\longleftarrow$ linear (4n) \\
+Alg2 $\longleftarrow$ quadratisch ($n^2$) \\
+\begin{itemize}
+\item Aufwand abhängig von
+	\begin{itemize}
+	\item[-] Größe n der Eingabe, Anzahl der Daten usw.
+	\item[-] der Komplexität des Algorithmus
+	\end{itemize}
+\item Unterscheidung zwischen 
+	\begin{itemize}
+	\item[(a)] Zeitkomplexität (Laufzeit der Alg. s.o.)
+	\item[(b)] Speicherkomplexität (benötigte Speichermenge)
+	\end{itemize}
+\item 90/10-Regel beim Programmieren: \\ 
+\glqq Ungefähr 90\% der Laufzeit wird in ca. 10\% des Programmcodes verbraucht\grqq
+\end{itemize}

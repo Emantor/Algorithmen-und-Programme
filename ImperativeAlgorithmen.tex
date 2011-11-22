@@ -320,13 +320,56 @@ Ablaufbeispiel fit(4) \\
 \end{itemize}
 
 \subsection{Grundlegende statische Datenstrukturen}
-\begin{itemize}
-\item statisch = konstante Anzahl von Variablen bzw. konstante Größen \\
-\underline{Array:} Vektor bzw. Feld aus Elementen \underline{desselben} Datentyps
+statisch = konstante Anzahl von Variablen bzw. konstante Größen \\
+\subsubsection{Array:} Vektor bzw. Feld aus Elementen \underline{desselben} Datentyps
 in C/C++:
 \begin{lstlisting}
 int a[100]; // Deklaration eines Arrays mit 100 Integer-Werten 0-99!
+a[0] = 30;
+a[99] = 40;
+a[100] = 1; // Falsch!
+
+char name[5] = "Karl"; // letztes Zeichen immer NULL-Zeichen '\0'
+// alternativ:
+char name[] = "Hans"; // Compiler erkennt die Laenge automatisch
+name[3] = 'd'; // Aus "Hans" wird "Hand"
+name = "Hans"; // FALSCH! Zuweisung an Feld nicht möglich!
 \end{lstlisting}
+\underline{Zweidimensionales Array:} Matrix bzw Tabelle \\
+Deklaration C/C++ z.B:
+\begin{lstlisting}
+float m[M][N]; // M und N ganze konstante Zahlen > 0!
+// Indizierung beginnt beu 0!
+\end{lstlisting}
+\begin{center}
+$\begin{bmatrix}
+m[0][0] & m[0][1] & \dots & m[0][N-1]	\\
+m[1][0] 	& \dots	& \dots & m[1][N-1]	\\
+\vdots 	& \vdots	& \vdots & \vdots	\\
+m[M-1][0] & \dots & \dots & m[M-1][N-1] \\
+\end{bmatrix}$
+\end{center} 
+
+Im Speicher werden alle Zeilen hintereinander abgelegt: \\
+\texttt{m[0][0]\dots m[0][N-1] | m[1][0]\dots m[1][N-1] | m[M-1][N-1]} \\
+Wenn das Element \texttt{m[0][0]} an der Speicherposition s abgelegt ist, dann ist das Element \texttt{m[j][i]} an der Speicherpostion 
+$\mbox{s} + \mbox{j}*\mbox{N}+\mbox{i}$ abgelegt \\
+C/C++ Beispiel:
+\begin{lstlisting}
+double m[5][12]; // 2d-Array mit 5 Zeilen und 12 Spalten
+m[0][0] = 1.3; // setzt Element nach oben links
+m[4][11] = 2.5; // setzt Element nach unten rechts
+for (int y=0; y<5; j=j+1)
+{
+	for (int i=0; i<12; i=i+1)
+	{
+		m[j][i] = j * 12 + i; // Alle Elemente mit fortlauf. Nummern füllen
+	}
+}
+\end{lstlisting}
+Arrays mit mehr als zwei Dimensionen entsprechend. \\
+z.B. \texttt{float m[$N_1$][$N_2$]\dots [$N_k$]}
+
 \underline{Zugriffsbeispiel:}
 \begin{lstlisting}
 for (int i=0; i<100; i=i+1)
@@ -347,6 +390,59 @@ for (int i=0; i<100; i=i+1)
 	\end{tabular}
 	\end{center}
 \end{table}
+\subsubsection{Struktur (structure/record)}
+Zusammenfassung von Elementen unterschiedlicher Typen \\
+C/C++ Beispiel:
+\begin{lstlisting}
+#include <string.h> // für den Befehl strcpy(...)
+struct Person
+{
+	char Vorname[20];
+	char nachname[28];
+	int alter;
+	float groesse;
+	...
+};
 
+int main()
+{
+	person k; // deklariert eine Variable k von Typ Person 
+	k.alter = 29;
+	k.groesse = 1.65;
+	strcpy(k.vorname, "Markus");
+	strcpy(k.nachname, "Mueller");
+}
+\end{lstlisting}
+Für die Variable k (vom typ Person) reservierter Speicher:
+\begin{table}[h]
+	\caption[struct Speichel]{struct Speicherreservierung}
+	\begin{center}
+	\begin{tabular}{c|c}
+		Adresse & Inhalt\\
+		\hline
+		30 001 & 'M' \\
+		30 002 & 'a' \\
+		\dots & \dots \\
+		\hline
+		30 021 & 'M'\\
+		\dots & 'u' \\
+		\dots & 'e' \\
+		\hline
+		30049 &  (Beginn des int32 mit Nullen gefüllt) 0001 1101\\
+	\end{tabular}
+	\end{center}
+\end{table}
+C/C++ Beispiel:
+\begin{lstlisting}
+...
+Person pt[100]; // Array mit 100 Personen
+...
+pt[37].alter = 29;
+strcpy(pt[37].nachname, "Beyer");
+pt[37].nachname [0] = 'M' // Aus " Beyer" wird "Meyer"
+...
+\end{lstlisting}
+\begin{itemize}
+\item Geeignet zur Organisation/Strukturierung von Daten \\
+ $\Rightarrow$ übersichtliche und effiziente Algorithmen
 \end{itemize}
-
