@@ -1,0 +1,127 @@
+\section{neue Mitschrift}
+Whd: \\
+statisches Array: \\
+\begin{lstlisting}
+int a[4]; // Größe konstant
+a[0] = 35;
+\end{lstlisting}
+
+\begin{lstlisting}
+int size;
+cin >> size;
+int b[size]; // Compilerfehler
+\end{lstlisting}
+stattdessen ein dynamisches Array: \\
+\begin{lstlisting}
+int* pa = new int[size];
+pa[0] = 35;
+delete[] pa; // Gibt den Sepicher wieder frei
+\end{lstlisting}
+Achtung! Klammern[] dürfen nicht vergessen werden; da sont nur das erste Element des Arrays freigegeben würde!
+\begin{underline} In C analog zu \'new\' und \'delete\':\end{underline}
+\begin{lstlisting}
+int* pa = (int*)malloc(size*4); //size*4 Byte reserviert
+pa[0] = 1001;
+...
+free(pa);
+\end{lstlisting}
+oder besser:
+\begin{lstlisting}
+int* pa = (int*)malloc(size*sizeof(int));
+\end{lstlisting}
+\subsection{Dynmisches Erzeugen einer Struktur}
+\begin{lstlisting}
+struct Person
+{
+    string name;
+    int alter;
+    ...;
+}
+void main()
+{
+    Person z; //Statisch erzeugt
+    z.alter = 29;
+    Person* p; //Zeiger auf eine Person
+    p = new Person; //Speicher reservieren
+    (*p).alter = 29; // setzt Alter auf 29 C-Syntax
+    p -> alter=29; // setzt alter in C++-Syntax
+    ...
+    delete p;
+}
+\end{lstlisting}
+Bisher: Liste von Daten in Arrays, Problem bei Arrays: \\
+\begin{itemize}
+\item[-]Die Elemente müssen alle hintereinander im Speicher abgelegt werden
+\item[-]Einfügen und Löschen langsam, da die hinteren Elemente umkopiert werden müssen
+\end{itemize}
+
+\subsection{Lineare Listen} % Sollte 6.3 sein
+\begin{itemize}
+\item[-] Lineare Listen sind verkettete Folgen von Datenelementen
+\item[-] Jedes Element enthält neben den eigentlichen Daten einen zeiger auf das nächste Element
+\end{itemize}
+C/C++-Beispiel
+\begin{lstlisting}
+struct Element
+{
+    string name;
+    int nummer; // Personalnummer
+    Element *next; // Zeiger auf nächstes Element 
+}
+\end{lstlisting}
+Element: name nummer next \\
+\begin{underline}Verkettete Liste von Elementen: \end{underline} \\
+Anfang $\Rightarrow$ 1. Element | next $\Rightarrow$ ... \\
+Nullzeiger (NULL bzw 0 markiert, dass ein Zeiger auf keine gültige Speicherstelle zeigt \\% 0 müsste durchgestrichen sein
+\begin{underline}Erzeugen und Verketten von einer Liste mit zwei Elementen (C++):\end{underline}
+\begin{lstlisting}
+Element* anfang = new Element;
+anfang -> name = "Peter Meier";
+anfang -> nummer = 230001;
+anfang -> next=NULL;
+Element *zweites = new Element;
+zweites -> name "Gabi Schmidt";
+zweites -> nummer = 230002;
+zweites -> next = NULL;
+anfang -> next = zweites; // Verkettung vom ersten und zweiten Element
+\end{lstlisting}
+\begin{itemize}
+\item[-] Größe und Verkettung können \begin{underline}während der Programlaufzeit\end{underline} verändert werden (Einfügen/Löschen von Elementen)
+\item[-] Speicherplatz wird dynamisch zugeteilt
+\item[-] Die einzelnen Listenelemente können sich an belibigen Stelle im Speicher befinden.
+\end{itemize}
+\begin{underline}Operationen auf Listen:\end{underline} \\
+Füge neues Element hinter dem Element auf das Zeiger p zeigt ein. \\
+C++ Beispiel
+\begin{lstlisting}
+void insertElemen(/Element *p, const string &name, int nummer)
+{
+    Element *q = new Element;
+    q -> name = name;
+    q -> nummer = nummer;
+    q -> next = p -> next;
+}
+// Beispielaufruf (Einfügen eines neuen 3. elements):
+insertElement(anfang->next, "Ute Müller", 230120);
+\end{lstlisting}
+Lösche das Element hinter dem Element auf das p zeigt:
+\begin{lstlisting}
+void deleteElement(Element *p)
+{
+    if(p -> next !NULL) // Teste ob Nachfolger existiert
+    {
+        Element* q = p -> next;
+        p -> next = q -> next; // neu verketten
+        delete q;
+    }
+}
+\end{lstlisting}
+\subsection{Bäume}
+% Hier folgen viele Bilder
+\begin{itemize}
+\item[-] Ermöglicht Speicherung hierarchischer Strukturen (Gliederung in Dokumenten, Dateiverzeichnisse, verschachtelte terme, Vererbung, Organisationhierachien...)
+\item[-] Elemnt des Baumes (Knoten) sind durch gerichtete Kanten verbunden (keine Zyklen!)
+\item[-] Alle Elemnte außer der Wurzel haben einen Vorgänger
+\item[-] Binärer Baum maximal 2 Nachfolger pro Knoten
+\item[-] Definition: Ein binärer Baum B ist entweder leer oder besteht aus einer Wurzel w, sowie aus einem linken Teilbaum $B_l(w)$ und einem rechten Teilbaum $B_r(w)$.
+\end{itemize}

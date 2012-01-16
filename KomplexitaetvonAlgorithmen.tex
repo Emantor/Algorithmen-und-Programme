@@ -52,3 +52,86 @@ Alg2 $\longleftarrow$ quadratisch ($n^2$) \\
 \item 90/10-Regel beim Programmieren: \\ 
 \glqq Ungefähr 90\% der Laufzeit wird in ca. 10\% des Programmcodes verbraucht\grqq
 \end{itemize}
+
+\subsection{Asymptotische Komplexität und Groß-O-Notation}
+\begin{itemize}
+\item Abschätzung der Komplexität als Funktion von $n$
+\item Idee: \grqq Wachstumsverhalten\glqq möglichst allgemein für große n beschreiben\\
+(Konstante Faktoren und Summanden werden nicht berücksichtigt) \\
+(Zeichnung als Foto auf Handy)
+\item Die Groß-O-Notation weist einer Funktion $g: \mathbb{N} \rightarrow \mathbb{N}$ eine Menge von Funktionen $O(g(n))$ zu, die in gleicher Wachstumsbeziehung zu $g$ stehen.
+\item Eine Funktion $f$ ist Element von $O(g(n))$, falls sie nicht wesentlich schneller als $g$ wächst. \\
+Für große $n$ muss gelten $f(n) \leq c-g(n)$ mit einer beliebigen Konstanten $c$.
+\item Hier z.B. $g(n)$ wächst so schnell wie $f(n)$; \\
+$\Rightarrow f(n) \in O(g(n))$ \\
+in Bsp. aus 4.1. \\
+Alg1: $f(n) = 4n \Rightarrow f(n) \in O(n)$ \\
+Alg2: $f(n) = n^2 \Rightarrow f(n) \in O(n^2)$ \\ 
+\item \underline{formale Definition} \\
+$O(g(n))$ ist die Menge aller Funktionen $f(n)$, die asymptotisch beschränkt sind durch ein beliebiges aber konstantes Vielfaches der Funktion $g(n)$. \\
+Mathematisch: \\
+$O(g(n)) = \{ f(n) | \mbox{Es gibt positive Konstanten } c \mbox{ und } n_0 \mbox{,so dass für alle } n \ge n_0 \mbox{ gilt:} f(n) \le c*g(n) \}$
+\begin{itemize}
+\item[-] $O(a)$ Konstanter Aufwand
+\item[-] $O(log(n))$ logarithmischer Aufwand
+\item[-] $O(n)$ linearer Aufwand
+\item[-] $O(n^2)$ quadratischer Aufwand
+\item[-] $O(n^k)$ polynomialer Aufwand
+\item[-] $O(2^n)$ exponentieller Aufwand
+\item[-] $O(n^n)$ exponentieller Aufwand
+\end{itemize}
+\item Exponentielle Probleme sind im Allgemeinen nicht lösbar für große $n$.
+\item Wichtig: Reduktion der Komplexität durch Entwicklung effizienter Algorithmen.\\
+z.B. Fouriertransformation $O(n^2) \rightarrow$ schnelle Fouriertransformation (FFT): $O(n*log(n))$
+\item Rechenregeln:
+\begin{itemize}
+\item[-] Linearität: $O(c_1*g(n)+c_2) = O(g(n)) \Rightarrow 4n+3 \in O(n)$
+\item[-] Distributivität: $O(g_1(n)) + O(g_2(n)) = O(g_1(n) +g_2(n))$ \\
+$O(g_1(n))*O(g_2(n)) = O(g_1(n)*g_2(n))$
+\item[-] Außerdem: $O(O(g(n))) = O(g(n))$ \\
+$g_1(n)*O(g_2(n)) = O(g_1(n)*g_2(n))$
+\item[-] Merke: $f(n) = a_kn^k + a_{k-1}n^{k-1} + \dots + a_1n + a_0$ \\
+$\Rightarrow f(n) \in O(n^k) \Rightarrow 3n^5 + 2n^2 - 18n +5 \in O(n^5)$
+\end{itemize}
+\end{itemize}
+
+\subsection{Beispiele}
+\underline{Berechnung von $x^n$ (Version 1)} \\
+~\\
+C/C++ Beispiel
+\begin{lstlisting}
+double pow1(double x, int n)
+{
+	double y = 1;
+	for(int i=0; i <n; i = i+1) // n Durchläufe
+	{
+		y = y*x;
+	}
+	return y;
+}
+\end{lstlisting}
+Schleife wird ($n$)-mal durchlaufen $1*x*x*x*x*x*\dots *x$ \\
+$\Rightarrow$ Zeitkomplexität $f(n)=1 \Rightarrow f(n) \in O(n)$
+
+\underline{Berechnung von $x^n$ (schneller)}
+Rekursive Lösung des Problems durch fortlaufende Halbierung des Exponenten. \\
+z.B. $x^8 = x^4*x^4 \rightarrow x^4=x^2*x^2 \rightarrow x^2=x*x$ \\
+anstatt 8 nur noch 3 Multiplikationen \\
+$x^9 = x^4*x^4*x \rightarrow x^4=\dots$ \\
+C/C++
+\begin{lstlisting}
+double pow2(double x, int n)
+{
+	if(n==0) return 1; // x^0 = 1
+	if(x==1) return x; // x^1 = x
+	double y = pow2(x, n/2) // Rekursionsaufruf
+	y = y*y;
+	if(n%2=1) y=y*x; //für ungerade n
+	return y;
+}
+\end{lstlisting}
+Wie oft lässt sich n halbieren? \\
+$\rightarrow$ Logarithmus n (zur Basis 2) \\
+$\Rightarrow$ Zeitkomplexität $f(n) = log_2n$ \\
+$\Rightarrow$ $f(n) \in O(log n)$ \\
+Algorithmisches Prinzip: \underline{\glqq Divide and Conquer\grqq}
