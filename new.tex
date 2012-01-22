@@ -117,11 +117,48 @@ void deleteElement(Element *p)
 }
 \end{lstlisting}
 \subsection{Bäume}
-% Hier folgen viele Bilder
+% Hier folgen irgendwann viele Bilder
 \begin{itemize}
-\item[-] Ermöglicht Speicherung hierarchischer Strukturen (Gliederung in Dokumenten, Dateiverzeichnisse, verschachtelte terme, Vererbung, Organisationhierachien...)
-\item[-] Elemnt des Baumes (Knoten) sind durch gerichtete Kanten verbunden (keine Zyklen!)
-\item[-] Alle Elemnte außer der Wurzel haben einen Vorgänger
-\item[-] Binärer Baum maximal 2 Nachfolger pro Knoten
-\item[-] Definition: Ein binärer Baum B ist entweder leer oder besteht aus einer Wurzel w, sowie aus einem linken Teilbaum $B_l(w)$ und einem rechten Teilbaum $B_r(w)$.
+    \item[-] Ermöglicht Speicherung hierarchischer Strukturen (Gliederung in Dokumenten, Dateiverzeichnisse, verschachtelte terme, Vererbung, Organisationhierachien...)
+    \item[-] Elemnt des Baumes (Knoten) sind durch gerichtete Kanten verbunden (keine Zyklen!)
+    \item[-] Alle Elemnte außer der Wurzel haben einen Vorgänger
+    \item[-] Binärer Baum maximal 2 Nachfolger pro Knoten
+    \item[-] Definition: Ein binärer Baum B ist entweder leer oder besteht aus einer Wurzel w, sowie aus einem linken Teilbaum $B_l(w)$ und einem rechten Teilbaum $B_r(w)$.
+    \item[*] \underline{Datenstrukturen}: ähnlich wie Liste jedoch 2 Nachfolger pro Element \\
+C/C++ Beispiel
+\begin{lstlisting}
+struct Knoten
+{
+    int x; // zu speichernder Wer
+    Knoten* links; // Zeiger auf den linken Teilbaum
+    Knoten* rechts; // Zeiger auf den rechten Teilbaum
+};
+\end{lstlisting}
+    \item[*] Eignet sich gut um sortierte Daten zu speichern und schnell Zugriffsoperationen zu ermöglichen.
+    \item[*] \underline{Baumtraversierung}: Vollständiger Durchlauf eines Baumes, um sich z.B. auf alle Elemente eine Operation anzuwenden.
+    \item[*] Man unterscheidet drei Traversierungsarten: preorder, inorder, postorder
+    %Hier fehlen viele Bilder
+    Alternative Anschauung:\\
+    Preorder, inorder und postorder durchlaufen die Knoten in der gleichen Reihenfolge, unterscheiden sich jedoch darin wann die Operation auf die Knoten angewendet wird.\\
+    %Hier wieder ein Bild
+    \begin{lstlisting}
+// Paramter *p: Zeiger auf Wurzel bzw. Teilbaum
+void traverse(Knoten* p)
+{
+    if(p != NULL)
+    {
+        Operation auf p -> x; // für preorder
+        traverse(p -> links);
+        Operation auf p -> x; // für inorder
+        traverse(p -> rechts);
+        Operation auf p -> x; // für postorder
+    }
+}
+\end{lstlisting}
 \end{itemize}
+\subsection{Binäre Suchbäume}
+Ein binärer Baum B heißt Suchbaum wenn: \\
+für alle $x \in \mbox{Be}(w) \mbox{ gilt } x < w$ und $x \in \mbox{Br}(w) \mbox{ gilt } x > w$ und Be($w$), Br($w$) Suchbäume sind. 
+
+\underline{Einfügen neuer Elemente in B} (Struktogram)
+%Hier das Struktogram einfügen
