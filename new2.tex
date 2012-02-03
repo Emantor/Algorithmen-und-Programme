@@ -1,0 +1,61 @@
+\subsection{Hash-Tabellen/Adressberechnungsverfahren}
+Verfahren zur
+\begin{itemize}
+    \item[(1)] dynamische Speicherung von Daten (z.B. Martrikelnummer + Namen...)
+    \item[(2)] zum schnellen/gezielten Zugriff auf Daten (z.B. \glq gebe zu Marttrikelnummer 02345678 aus\grq)
+\end{itemize}
+Naive Lösung als Array: \\
+% Viele viele Bunte Bilder
+\begin{itemize}
+    \item schneller Zugriff über Martrikelnummer $O(1)$
+    \item Viel zu viel ungenutzter Speicher
+    \item Finden der Martrikelnummer zu gegebenen Namen sehr aufwendig
+\end{itemize}
+bisherige Alternativen: Listen,(binäre Such-)Bäume, $\Rightarrow$ mehrere, evtl alle Elemente müssen durchsucht werden $\Rightarrow$ langsamer! \\
+\underline{Hashing}
+\begin{itemize}
+    \item Speicher wird als Array a[n] bereitgestellt
+    \item Zugriff über Schlüssel $x$ (z.B. Martrikelnummer) mit umfangreichem Schlüsselbereich $X$, wobei $N$ üblicherweise wesentlich kleiner las $|X|$ ist (z.B. Matrikelnummer-Bereich 0 - 99.999.999)
+    \item Die Adresse bzw der Index, an dem ein Datenelement zu speichern ist,wird mit Hilfe einer \underline{Hashfunktion} $'h(x)'$ berechnet $ i = h(x)$ (z.B. i = x \% N)
+    \item Die Hash-Funktion ist nicht bijektiv, d.h. verschiedene Schlüssel können zum selben Index führen $\Rightarrow$ Kollision.
+    % Noch mehr bunte Bilder
+\end{itemize}
+Beispiele für Hash-Funkionen
+\begin{enumerate}
+    \item $h(x) = x \% N$
+    \item $x_y,x_2$ seien Ordnungszahlen der ersten beiden Buchstaben des zu speichernden Namens: $h(x_1,x_2) = x_1 + x_2$ \\ Nachteil: $h(x_1,x_2)= h(x_2,x_1)$
+    \item $h(x_1,x_2) = [347 * x_1 + x_2] \% 1147$ \\
+    \underline{Beachte:}
+    \begin{itemize}
+        \item Ergebnis $h(x)$ muss inerhalb des Array-Indexbereichs liegen $0...N-1$!
+        \item Bei zufälligen Schlüssel sollten alle Adressen möglichst gleich wahrscheinlich sein.
+    \end{itemize}
+\end{enumerate}
+\underline{Kollisionsbehandlung} \\
+Wohin soll ein Element geschrieben werden, wenn sein Arrayplatz schon belegt ist?
+\begin{enumerate}
+    \item \underline{Binäre Verkettung} \\
+    Erweiterung des Arrays durch lineare Listen 
+    %Bunte Bilder
+    \item \underline{Verschmolzene Ketten} \\
+    Externe Listen aus 1. werden im array \glq verschmolzen\grq, d.h. die Speicherung auf den nächsten \underline{freien} Tabellenplatz
+    %Buntes Bild
+    \item \underline{Offene Adressierung}
+    \begin{itemize}
+        \item Keine expliziten zeiger
+        \item jedes Element wird über einen Sondierungspfad $a_0 = h(x), a_1, a_2, ...$ erreicht
+        \begin{itemize}
+            \item[a)] lineare Sondierung \\
+            $a_0 = h(x), a_{i+1} = (a_i + 1) \% N$ nächster Speicherplatz
+            \item[b)] Doppeltes Hashing:
+            $a_0 = h(x), a_{i + 1} = (a_i + \delta ) \% N$ \\
+            $\delta = g(x), g(x)$ weitere Hashfunktion
+        \end{itemize}
+        \item Bei 80\%-tiger Belegung der Hash-Tabelle ist im Schnitt mit höchstens 3 Kollisionen zu rechnen.
+    \end{itemize}
+\end{enumerate}
+\underline{Aufwandsbetrachtung} \\
+Suchen / Einfügen / Löschen mit konstantem Zeitaufwand $O(1)$; \underline{unabhängig von $N$}. \\
+\underline{Vergleich von anderen Datenstrukturen}
+% Tabelle
+
